@@ -1,0 +1,34 @@
+{
+    "app-id": "com.github.bleakgrey.tootle",
+    "base": "io.elementary.BaseApp",
+    "base-version": "juno",
+    "runtime": "org.freedesktop.Platform",
+    "sdk": "org.freedesktop.Sdk",
+    "runtime-version": "18.08",
+    "command": "com.github.bleakgrey.tootle",
+    "finish-args": [
+        / * X11 + XShm * /
+        "--share=ipc", "--socket=x11",
+        / * Wayland * /
+        "--socket=wayland",
+        / * dconf * /
+        "--filesystem=xdg-run/dconf", "--filesystem=~/.config/dconf:ro",
+        "--talk-name=ca.desrt.dconf", "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
+        "--share=network"
+    ],
+    "modules": [
+        {
+            "name": "tootle",
+            "buildsystem": "meson",
+            "config-opts": ["--buildtype=release"],
+            "sources": [{
+                "type": "git",
+                "url": "https://github.com/bleakgrey/tootle.git",
+            },{
+                "type": "patch",
+                "path": "elementary-theme.patch"
+            }]
+        }
+    ]
+}
+
